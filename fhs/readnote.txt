@@ -1,0 +1,109 @@
+类unix和linux的fhs
+
+目录分类标准：
+标准：
+		可共享				不可共享
+静止的	/usr				/etc
+ 		/opt				/boot
+多变的	/var/mail			/var/run
+ 		/var/spool/news		/var/lock
+
+
+
+
+基本原理
+	禁止创建根文件系统的新子目录
+	也就是说，不希望在 /  根目录下创建自己的目录 ，比如在 /root /bin 同层级下创建一个自己的目录，比如 /personal 
+	因为/目录一般挂载在较小的分区空间，如果创建自己的文件，在使用中不断添加文件，可能会破坏系统安全
+	
+	有以下几个原因：
+		它需要根分区上的空间，系统管理员可能出于性能或安全原因希望保持根分区的空间较小且简单。
+		它逃避了系统管理员为在可安装卷上分发标准文件层次结构而设置的任何纪律。
+
+
+类unix根目录下：(可以看见，没有proc目录)
+	内核：
+	/
+		/bin	基本命令二进制文件（供所有用户使用）
+		/boot	引导加载程序的静态文件
+		/dev	设备文件,硬盘，U盘，鼠标，键盘，设备文件
+		/etc	特定于主机的系统配置
+		/lib	基本共享库和内核模块
+		
+		/media	可移动媒体的安装点
+		/mnt	临时挂载文件系统的挂载点
+		/opt	附加应用软件包
+		/run	与正在运行的进程相关的数据
+		/sbin	基本系统二进制文件
+
+		/srv	本系统所提供服务的数据
+		/tmp	临时文件
+		/usr	二级层次结构
+		/var	变量数据
+
+	子系统：
+		/root	根用户的主目录（可选）
+		/home	用户主目录（可选）
+		/lib<qual>	替代格式基本共享库（可选）
+		
+
+ 
+
+/bin	基本命令二进制文件（供所有用户使用）
+	bin目录下不能有子目录，且相关命令和命令的符号链接必须放在此目录下
+	cat			Utility to concatenate files to standard output
+	chgrp		Utility to change file group ownership
+	chmod		Utility to change file access permissions
+	chown		Utility to change file owner and group
+	cp			Utility to copy files and directories
+	date		Utility to print or set the system data and time
+	dd			Utility to convert and copy a file
+	df			Utility to report filesystem disk space usage
+	dmesg		Utility to print or control the kernel message buffer
+	echo		Utility to display a line of text
+	false		Utility to do nothing, unsuccessfully
+	hostname	Utility to show or set the system's host name
+	kill		Utility to send signals to processes
+	ln			Utility to make links between files
+	login		Utility to begin a session on the system
+	ls			Utility to list directory contents
+	mkdir		Utility to make directories
+	mknod		Utility to make block or character special files
+	more		Utility to page through text
+	mount		Utility to mount a filesystem
+	mv			Utility to move/rename files
+	ps			Utility to report process status
+	pwd			Utility to print name of current working directory
+	rm			Utility to remove files or directories
+	rmdir		Utility to remove empty directories
+	send		The `sed' stream editor
+	sh			POSIX compatible command shell
+	stty		Utility to change and print terminal line settings
+	su			Utility to change user ID
+	sync		Utility to flush filesystem buffers
+	true		Utility to do nothing, successfully
+	umount		Utility to unmount file systems
+	uname		Utility to print system information
+
+
+
+基本原理
+	添加了tar 、gzip 和cpio命令， 以便可以恢复系统（前提是系统完好无损）。/
+	相反，如果不希望从根分区进行恢复，则可以省略这些二进制文件（例如，ROM 芯片根，/usr通过 NFS 安装）。如果计划通过网络恢复系统，则根分区上必须有ftp 或tftp（以及获取 ftp 连接所需的一切）。
+
+
+
+/opt：附加应用软件包
+
+/sbin：系统二进制文件
+	sbin 目录中很简单：如果普通用户（不是系统管理员）要直接运行它，那么它必须放在“bin”目录中。普通用户不必将任何sbin 目录放在他们的路径中
+	root用户 系统二进制文件放/sbin目录，普通用户需要的文件，放/bin目标下
+
+/srv：本系统提供的服务的数据
+
+
+
+/usr是文件系统的第二个主要部分。 
+	/usr是可共享的只读数据。这意味着应该/usr可以在各种符合 FHS 的主机之间共享，并且不得写入。
+	任何特定于主机或随时间变化的信息都存储在其他地方。
+	大型软件包不得使用/usr层次结构下的直接子目录。

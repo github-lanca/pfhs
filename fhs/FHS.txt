@@ -1,0 +1,100 @@
+文件系统层次标准 版本 3.0
+Filesystem Hierarchy Standard 简称 FHS标准
+2015 年 3 月 19 日
+
+本书献给 Christopher Yeoh，他是我多年的好友和同事，也是 FHS 的原始编辑之一。如果没有他的奉献，本书不可能问世。
+
+文档地址：
+	https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
+
+
+标准：
+		可共享				不可共享
+静止的	/usr				/etc
+ 		/opt				/boot
+多变的	/var/mail			/var/run
+ 		/var/spool/news		/var/lock
+
+
+类unix目录
+	/
+		/bin：基本用户命令二进制文件（供所有用户使用）
+		/boot：引导加载程序的静态文件
+		/dev：设备文件
+		/etc：主机特定的系统配置 
+			/etc/opt：/opt 的配置文件
+			/etc/X11：X Window 系统的配置（可选）
+			/etc/sgml：SGML 的配置文件（可选）
+			/etc/xml：XML 配置文件（可选）
+
+
+		/home：用户主目录（可选） 
+		/lib：基本共享库和内核模块 
+		/lib <qual>：备用格式基本共享库（可选） 
+		/media：可移动媒体的挂载点 
+		/mnt：临时挂载文件系统的挂载点 
+		
+		/opt：附加应用软件包 
+		/root：root 用户的主目录（可选） 
+		/run：运行时变量数据 
+		/sbin：系统二进制文件 
+		/srv：本系统提供的服务的数据 
+		
+		/tmp：临时文件 
+		/usr 层次结构 
+			/usr/bin：大多数用户命令 
+			/usr/include：标准包含文件的目录。 
+			/usr/lib：编程和软件包的库 
+			/usr/libexec：其他程序运行的二进制文件（可选） 
+			/usr/lib <qual>：备用格式库（可选） 
+			/usr/local：本地层次结构 
+			/usr/local/share：本地架构独立的层次结构
+			/usr/sbin：非必要的标准系统二进制文件 
+			/usr/share：与体系结构无关的数据 
+			/usr/share/color：颜色管理信息（可选）
+			/usr/share/dict：单词列表（可选）
+			/usr/share/man：手册页
+			/usr/share/misc：其他与体系结构无关的数据
+			/usr/share/ppd：打印机定义（可选）
+			/usr/share/sgml：SGML 数据（可选）
+			/usr/share/xml：XML 数据（可选）
+			/usr/src：源代码（可选） 
+
+		/var 层次结构 
+			/var/account：处理会计日志（可选） 
+			/var/cache：应用程序缓存数据 
+			/var/cache/fonts：本地生成的字体（可选）
+			/var/cache/man：本地格式化的手册页（可选）
+			/var/crash：系统崩溃转储（可选） 
+			
+			/var/games：可变游戏数据（可选） 
+			/var/lib：变量状态信息 
+			/var/lib/<editor>：编辑器备份文件和状态（可选）
+			/var/lib/color：色彩管理信息（可选）
+			/var/lib/hwclock：hwclock 的状态目录（可选）
+			
+			/var/lib/misc：杂项变量数据
+			/var/lock：锁定文件 
+			/var/log：日志文件和目录 
+			/var/mail：用户邮箱文件（可选） 
+			/var/opt：/opt 的变量数据 
+			
+			/var/run：运行时变量数据 
+			/var/spool：应用程序假脱机数据 
+			/var/spool/lpd：行式打印机守护进程打印队列（可选）
+			/var/spool/rwho：Rwhod 文件（可选）
+			/var/tmp：系统重启之间保留的临时文件 
+			/var/yp：网络信息服务 (NIS) 数据库文件（可选） 
+
+
+	Linux
+		/ ：根目录
+		/bin：基本用户命令二进制文件（供所有用户使用）
+		/dev：设备和特殊文件
+		/etc：主机特定的系统配置
+		/proc：内核和进程信息虚拟文件系统
+		/sbin：基本系统二进制文件
+		/sys：内核和系统信息虚拟文件系统
+		/usr/include：C 程序包含的头文件
+		/usr/src：源代码
+		/var/spool/cron：cron 和 at 作业 
